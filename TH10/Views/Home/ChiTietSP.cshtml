@@ -1,0 +1,37 @@
+﻿@model TH10.Models.Laptop
+
+@{
+    ViewBag.Title = "ChiTietSP";
+}
+
+<style>
+    a:hover {
+        color: white;
+    }
+
+    .list-group-item {
+        background-color: #EEEEEE;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Chi tiết sản phẩm</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <img src="~/Image/@Url.Content(Model.ImagePath)" />
+                </div>
+                <div class="col-lg-6">
+                    <h5 class="card-title" style="font-size: 3rem; font-weight: bold; color: cornflowerblue">  @Html.DisplayFor(model => model.LaptopName)</h5>
+                    <p class="card-text" style="font-size: 3rem; font-weight: bold; color: red"> @Html.DisplayFor(model => model.Price)</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+   
+
+</div>
+
+
+    

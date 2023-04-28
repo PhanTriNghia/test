@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OntapModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Factory">
+    <Key>
+      <PropertyRef Name="FactoryID" />
+    </Key>
+    <Property Name="FactoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FactoryName" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Laptop">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LaptopName" Type="nvarchar" MaxLength="100" />
+    <Property Name="ImagePath" Type="nvarchar" MaxLength="250" />
+    <Property Name="Price" Type="money" />
+    <Property Name="FactoryID" Type="int" />
+  </EntityType>
+  <Association Name="FK_FactoryID">
+    <End Role="Factory" Type="Self.Factory" Multiplicity="0..1" />
+    <End Role="Laptop" Type="Self.Laptop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factory">
+        <PropertyRef Name="FactoryID" />
+      </Principal>
+      <Dependent Role="Laptop">
+        <PropertyRef Name="FactoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OntapModelStoreContainer">
+    <EntitySet Name="Factory" EntityType="Self.Factory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Laptop" EntityType="Self.Laptop" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_FactoryID" Association="Self.FK_FactoryID">
+      <End Role="Factory" EntitySet="Factory" />
+      <End Role="Laptop" EntitySet="Laptop" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TH10.Models.Laptop>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<style>
+    .product-items {
+        margin-top: 20px;
+    }
+    .col-lg-6 {
+        padding-right: 0px;
+    }
+</style>
+
+
+    <div class="container">
+        <div class="row">
+           
+            <div class="col">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <img style="width: 100%; height: 200px; margin-top: 20px" src="~/Image/banner-s.jpg" class="img-fluid" alt="...">
+                    </div>
+                    <div class="col-lg-6" style="background-color: black; margin-top: 20px; height: 200px">
+                        <div class="title">
+                            <h3 style="color: red; text-align: center">Săn sách Sale</h3>
+                            <h3 style="color: white; text-align: center">Giảm đến 30%</h3>
+                            <h3 style="color:white; text-align: center">Voucher 400k</h3>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="row product-items">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-lg-4">
+                            <div class="card" style="width: 18rem;">
+                                <img src="~/Image/@item.ImagePath" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="font-size: 1.6rem; font-weight: bold; color: cornflowerblue"> @Html.DisplayFor(modelItem => item.LaptopName)</h5>
+                                    <p class="card-text" style="font-weight: bold; color:red">@Html.DisplayFor(modelItem => item.Price)</p>
+                                    @using (Html.BeginForm("ChiTietSP", "Home", new { id = item.ID }))
+                                    {
+                                        <input type="submit" value="Mua" class="btn btn-danger" />
+                                    }
+                                    @* <a href="#" class="btn btn-primary">Go somewhere</a>
+                            @Html.ActionLink("ChiTietSP", "ChiTietSP", new { id = item.ID })*@
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+        
+    </div>

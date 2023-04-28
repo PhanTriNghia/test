@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OntapModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Factory">
+    <Key>
+      <PropertyRef Name="FactoryID" />
+    </Key>
+    <Property Name="FactoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FactoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Laptops" Relationship="Self.FK_FactoryID" FromRole="Factory" ToRole="Laptop" />
+  </EntityType>
+  <EntityType Name="Laptop">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LaptopName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ImagePath" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="FactoryID" Type="Int32" />
+    <NavigationProperty Name="Factory" Relationship="Self.FK_FactoryID" FromRole="Laptop" ToRole="Factory" />
+  </EntityType>
+  <Association Name="FK_FactoryID">
+    <End Role="Factory" Type="Self.Factory" Multiplicity="0..1" />
+    <End Role="Laptop" Type="Self.Laptop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Factory">
+        <PropertyRef Name="FactoryID" />
+      </Principal>
+      <Dependent Role="Laptop">
+        <PropertyRef Name="FactoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OntapEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Factories" EntityType="Self.Factory" />
+    <EntitySet Name="Laptops" EntityType="Self.Laptop" />
+    <AssociationSet Name="FK_FactoryID" Association="Self.FK_FactoryID">
+      <End Role="Factory" EntitySet="Factories" />
+      <End Role="Laptop" EntitySet="Laptops" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
